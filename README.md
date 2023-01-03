@@ -1,5 +1,5 @@
 # podcast-transcriber
-CLI tool to transcribe podcast audio files (or other arbitrary English audio with multiple speakers). Outputs transcriptions as docx files. Uses the Deepgram API.
+CLI tool to transcribe podcast audio files (or other audio with multiple speakers). Outputs transcriptions as docx files. Uses the Deepgram API.
 
 ## Usage
 
@@ -28,6 +28,11 @@ This will create a folder in the same parent directory as your audio input folde
 ## Limitations
 * Currently this script can only be used on wav, mp3, ogg, or m4a files. mp3 is recommended.
 * The formatted docx file will not be styled correctly if opened in Apple Pages. Google Docs works well.
+
+## Output Example
+
+![image](https://user-images.githubusercontent.com/12928449/210316882-97b93605-7b9c-483a-8126-6f0595863e92.png)
+
 
 
 
