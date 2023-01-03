@@ -1,0 +1,29 @@
+{
+  "name": "podcast-transcriber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "dotenv -e .env -- node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leothorp/podcast-transcriber.git"
+  },
+  "keywords": [
+    "speech transcription",
+    "podcast"
+  ],
+  "author": "leothorp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leothorp/podcast-transcriber/issues"
+  },
+  "homepage": "https://github.com/leothorp/podcast-transcriber#readme",
+  "dependencies": {
+    "@deepgram/sdk": "^1.14.0",
+    "dotenv-cli": "^6.0.0",
+    "mime": "^3.0.0"
+  }
+}
