@@ -24,6 +24,8 @@
   "dependencies": {
     "@deepgram/sdk": "^1.14.0",
     "dotenv-cli": "^6.0.0",
+    "html-pdf-node": "^1.0.8",
+    "html-to-docx": "^1.6.4",
     "mime": "^3.0.0"
   }
 }
