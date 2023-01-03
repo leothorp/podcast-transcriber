@@ -77,24 +77,33 @@ const exec = async () => {
           const secondsPart = `${startTimeSecs % 60}`.padStart(2, "0");
           const minsPart = `${Math.floor(startTimeSecs / 60)}`.padStart(2, "0");
           const timeStr = `${minsPart}:${secondsPart}`;
-          const paragraphHeaderHtml = `<br /><div style="font-weight: bold; font-family: Arial;"><strong>[${timeStr} Speaker: ${speaker}]</strong></div>`;
-          const paragraphTranscriptHtml = `${paragraphHeaderHtml}<p style="font-family: Arial; margin: 0;">${sentences
+          const paragraphHeaderText = `[${timeStr} Speaker: ${speaker}]`;
+          const paragraphTranscriptText = sentences
             .map((s) => s.text)
-            .join(" ")}</p>`;
+            .join(" ");
+          //<strong> required to prevent a bug in docx conversion library
+          const paragraphTranscriptHtml = `
+              <br />
+              <div style="font-weight: bold; font-family: Arial;">
+                <strong>${paragraphHeaderText}</strong>
+              </div>
+              <p style="font-family: Arial; margin: 0;">${paragraphTranscriptText}</p>
+            `;
           return paragraphTranscriptHtml;
         })
         .reduce((acc, curr) => acc + curr, "");
     const title = `<h1>${outputFilenamePrefix}</h1>`;
 
-    const htmlString = `<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Transcription</title>
-    </head>
-    <body>${title}${bodyHtml}</body></html>`;
-    // const htmlString = `${title}${bodyHtml}`;
-    console.log(htmlString);
+    const htmlString = `
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <title>Transcription</title>
+            </head>
+            <body>${title}${bodyHtml}</body>
+        </html>`;
+ 
     const docxFileBuffer = await HTMLtoDOCX(htmlString, null, {
       font: "Arial",
     });
@@ -105,29 +114,12 @@ const exec = async () => {
     console.log(`completed transcription for ${filePath}.\n`);
   }
 
-  //WIP code to output as raw text file instead
-  // @ts-ignore
-  // response.results.channels[0].alternatives[0].paragraphs.paragraphs
-  //   .map((p) => {
-  //     const { speaker, start, sentences } = p;
-  //     const startTimeSecs = Math.floor(start);
-  //     const secondsPart = `${startTimeSecs % 60}`.padStart(2, "0");
-  //     const minsPart = `${Math.floor(startTimeSecs / 60)}`.padStart(2, "0");
-  //     const timeStr = `${minsPart}:${secondsPart}`;
-  //     const paragraphTranscript = `[${timeStr} Speaker: ${speaker}]${
-  //       os.EOL
-  //     }${sentences.map((s) => s.text).join(" ")}${os.EOL}${os.EOL}`;
-  //     return paragraphTranscript;
-  //   })
-  //   .forEach((str) =>
-  //     fs.appendFileSync(path.join(transcriptionPdfsDir, docFileName), str)
-  //   );
-  // console.log(`completed transcription for ${filePath}.\n`);
+
 };
 
 exec();
 
-//currently unused. if utterances: true, is set, group an unbroken string of utterances from the same speaker.
+//if utterances: true, is set, can be used to group an unbroken string of utterances from the same speaker. Currently unused.
 const groupUtterances = (response) => {
   response.results.utterances
     //group
