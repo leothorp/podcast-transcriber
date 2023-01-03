@@ -1,5 +1,5 @@
 # podcast-transcriber
-CLI tool to transcribe podcast audio files (or other arbitrary English audio with multiple speakers). Outputs transcriptions as docx files. Uses the Deepgram API.
+CLI tool to transcribe podcast audio files (or other arbitrary English audio with multiple speakers). Outputs transcriptions as docx files, formatted with paragraph timestamps and indications of speaker transitions (diarization). Uses the Deepgram API for transcription.
 
 ## Usage
 
