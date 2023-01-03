@@ -27,6 +27,7 @@ This will create a folder in the same parent directory as your audio input folde
 ## Limitations
 * Currently this script can only be used on wav, mp3, ogg, or m4a files. mp3 is recommended.
 * The formatted docx file will not be styled correctly if opened in Apple Pages. Google Docs works well.
+* Diarization and word accuracy aren't always perfect (as shown by the output example below.) I'd suggest using the timestamps to spot check the original audio for any areas that seem unclear.
 
 ## Output Example
 
