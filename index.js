@@ -3,7 +3,12 @@ const fs = require("fs");
 const path = require("path");
 const mime = require("mime");
 
-console.log(process.argv);
+if (!process.env.DEEPGRAM_API_KEY) {
+  console.error(
+    "No .env file with an entry for DEEPGRAM_API_KEY was found (see the README for setup instructions)."
+  );
+  process.exit(1);
+}
 const fileFormats = [".wav", ".mp3", ".ogg", ".m4a"];
 
 const audioFileDir = process.argv[2];
@@ -18,8 +23,7 @@ const transcriptionPdfsDir = path.join(transcriptionsDir, "pdfs");
 fs.mkdirSync(transcriptionsDir);
 fs.mkdirSync(transcriptionJsonDir);
 fs.mkdirSync(transcriptionPdfsDir);
-// @ts-ignore
-const deepgram = new Deepgram(process.env.DEEPGRAM_API_KEY);
+const deepgram = new Deepgram(process.env.DEEPGRAM_API_KEY || "");
 
 fs.readdirSync(audioFileDir).forEach(async (fileName) => {
   const filePath = path.join(audioFileDir, fileName);
