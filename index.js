@@ -68,23 +68,6 @@ const exec = async () => {
 
     const docFileName = outputFilenamePrefix + ".docx";
 
-    // @ts-ignore
-    // response.results.channels[0].alternatives[0].paragraphs.paragraphs
-    //   .map((p) => {
-    //     const { speaker, start, sentences } = p;
-    //     const startTimeSecs = Math.floor(start);
-    //     const secondsPart = `${startTimeSecs % 60}`.padStart(2, "0");
-    //     const minsPart = `${Math.floor(startTimeSecs / 60)}`.padStart(2, "0");
-    //     const timeStr = `${minsPart}:${secondsPart}`;
-    //     const paragraphTranscript = `[${timeStr} Speaker: ${speaker}]${
-    //       os.EOL
-    //     }${sentences.map((s) => s.text).join(" ")}${os.EOL}${os.EOL}`;
-    //     return paragraphTranscript;
-    //   })
-    //   .forEach((str) =>
-    //     fs.appendFileSync(path.join(transcriptionPdfsDir, docFileName), str)
-    //   );
-    // console.log(`completed transcription for ${filePath}.\n`);
     const bodyHtml =
       // @ts-ignore
       response.results.channels[0].alternatives[0].paragraphs.paragraphs
@@ -101,10 +84,7 @@ const exec = async () => {
           return paragraphTranscriptHtml;
         })
         .reduce((acc, curr) => acc + curr, "");
-    //TODO(lt): revert below
     const title = `<h1>${outputFilenamePrefix}</h1>`;
-    // const title = "";
-    // const htmlString = `<html><body>${title}${bodyHtml}</body></html>`;
 
     const htmlString = `<!DOCTYPE html>
 <html lang="en">
@@ -124,6 +104,25 @@ const exec = async () => {
     );
     console.log(`completed transcription for ${filePath}.\n`);
   }
+
+  //WIP code to output as raw text file instead
+  // @ts-ignore
+  // response.results.channels[0].alternatives[0].paragraphs.paragraphs
+  //   .map((p) => {
+  //     const { speaker, start, sentences } = p;
+  //     const startTimeSecs = Math.floor(start);
+  //     const secondsPart = `${startTimeSecs % 60}`.padStart(2, "0");
+  //     const minsPart = `${Math.floor(startTimeSecs / 60)}`.padStart(2, "0");
+  //     const timeStr = `${minsPart}:${secondsPart}`;
+  //     const paragraphTranscript = `[${timeStr} Speaker: ${speaker}]${
+  //       os.EOL
+  //     }${sentences.map((s) => s.text).join(" ")}${os.EOL}${os.EOL}`;
+  //     return paragraphTranscript;
+  //   })
+  //   .forEach((str) =>
+  //     fs.appendFileSync(path.join(transcriptionPdfsDir, docFileName), str)
+  //   );
+  // console.log(`completed transcription for ${filePath}.\n`);
 };
 
 exec();
